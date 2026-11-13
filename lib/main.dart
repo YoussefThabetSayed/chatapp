@@ -22,8 +22,12 @@ class ChatApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LoginCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => LoginCubit(),
+        ),
+      ],
       child: MaterialApp(
         routes: {
           LoginPage.id: (context) => LoginPage(),
