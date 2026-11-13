@@ -8,16 +8,11 @@ import 'package:scholarchat/pages/register_page.dart';
 import 'package:scholarchat/widgets/custom_button.dart';
 import 'package:scholarchat/widgets/custom_text_field.dart';
 
-class LoginPage extends StatefulWidget {
-  LoginPage({super.key});
-  static String id = 'loginPage';
 
-  @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
+class LoginPage extends StatelessWidget {
   bool isLoading = false;
+    static String id = 'loginPage';
+
 
   GlobalKey<FormState> formkey = GlobalKey();
   String? email;
@@ -91,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                   onTap: () async {
                     if (formkey.currentState!.validate()) {
                       isLoading = true;
-                      setState(() {});
+                      
                       try {
                         await loginUser();
                         Navigator.pushNamed(context, ChatScreen.id,arguments: email);
@@ -104,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                         showSnakBar(context, 'there was an error!');
                       }
                       isLoading = false;
-                      setState(() {});
+                      
                     } else {}
                   },
                   text: 'LOGIN',
