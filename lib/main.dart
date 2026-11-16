@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:scholarchat/pages/blocs/auth_bloc/auth_bloc.dart';
 import 'package:scholarchat/pages/chat_screen.dart';
 import 'package:scholarchat/pages/cubits/auth_cubit/auth_cubit.dart';
 import 'package:scholarchat/pages/cubits/chat_cubit/chat_cubit.dart';
@@ -32,6 +33,7 @@ class ChatApp extends StatelessWidget {
         //   create: (context) => RegisterCubit(),
         // ),
         BlocProvider(create: (context) => AuthCubit()),
+        BlocProvider(create: (context) => AuthBloc()),
         BlocProvider(
           create: (context) => ChatCubit()..getMessages(),
         ),
