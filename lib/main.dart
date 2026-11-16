@@ -32,7 +32,7 @@ class ChatApp extends StatelessWidget {
         BlocProvider(
           create: (context) => RegisterCubit(),
         ),BlocProvider(
-          create: (context) => ChatCubit(),
+          create: (context) => ChatCubit()..getMessages(),
         ),
         
         

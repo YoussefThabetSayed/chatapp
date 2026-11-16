@@ -38,7 +38,12 @@ class ChatScreen extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            child: BlocBuilder<ChatCubit, ChatState>(
+            child: BlocConsumer<ChatCubit, ChatState>(
+              listener: (context, state) {
+                if (state is ChatSuccess) {
+                  messagesList = state.messages;
+                }
+              },
               builder: (context, state) {
                 return ListView.builder(
                   reverse: true,
@@ -62,6 +67,10 @@ class ChatScreen extends StatelessWidget {
             child: TextField(
               controller: controller,
               onSubmitted: (data) {
+                if (data.trim().isNotEmpty) {
+                  BlocProvider.of<ChatCubit>(context).sendMassage(
+                      massage: data.trim(), email: email.toString());
+                }
                 controller.clear();
                 _controller.animateTo(0,
                     duration: const Duration(seconds: 1), curve: Curves.easeIn);
@@ -70,7 +79,10 @@ class ChatScreen extends StatelessWidget {
                 hintText: 'send Message',
                 suffixIcon: IconButton(
                   onPressed: () {
-                    if (controller.text.trim().isNotEmpty) {}
+                    if (controller.text.trim().isNotEmpty) {
+                      BlocProvider.of<ChatCubit>(context).sendMassage(
+                          massage: controller.text, email: email.toString());
+                    }
                     // else {
                     //  showSnakBar(context, 'Please enter a message');
                     // }
