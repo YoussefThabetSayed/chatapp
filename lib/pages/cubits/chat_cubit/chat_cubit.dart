@@ -1,0 +1,33 @@
+import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:meta/meta.dart';
+import 'package:scholarchat/constans.dart';
+import 'package:scholarchat/models/message_model.dart';
+
+part 'chat_state.dart';
+
+class ChatCubit extends Cubit<ChatState> {
+  ChatCubit() : super(ChatInitial());
+  CollectionReference messages =
+      FirebaseFirestore.instance.collection(kMessagesCollection);
+
+  void sendMassage({required String massage, required String email}) {
+    messages.add(
+      {
+        kMessage: massage,
+        kCreatedAt: DateTime.now(),
+        'id': email,
+      },
+    );
+  }
+
+  void getMessages() {
+    messages.orderBy(kCreatedAt, descending: true).snapshots().listen((event) {
+      List<Message> messagesList = [];
+      for(var doc in event.docs){
+        
+      }
+      emit(ChatSuccess());
+    });
+  }
+}
